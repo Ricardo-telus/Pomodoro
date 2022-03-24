@@ -1,0 +1,31 @@
+body {
+  background-color: #FAD961;
+  background-image: linear-gradient(0deg, #FAD961 0%, #F76B1C 44%);
+  /* background:url("./images/blue.jpeg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover; */
+}
+#assignment{
+  background: rgba( 255, 255, 255, 0.3 );
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+  backdrop-filter: blur( 0px );
+  -webkit-backdrop-filter: blur( 0px );
+  border-radius: 10px;
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+#timer{
+  font-size: 100px;
+}
+#tasks{
+  background-color: aliceblue;
+  border-radius: 15px;
+}
+
+td{
+  text-align:center;
+}
+#cant{
+  width: 3em;
+}
