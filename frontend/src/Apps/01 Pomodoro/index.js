@@ -184,7 +184,7 @@ const playSound = (src)=>{
       };
     }, [isActive, isPaused]);
   return (
-    <div className="containertext-white align-items-center text-white pt-5 vh-100" 
+    <div className="text-white align-items-center text-white pt-5 vh-100" 
     style={{
       backgroundColor: (status==="Time"||status==="On task")?('#FAD961')
                        :(status==="Short break"?('0093E9'):('0093E9')),
