@@ -197,8 +197,8 @@ const playSound = (src)=>{
           <h1>Pomodoro App</h1>
         </div>        
       </div> 
-      <div className="row align-items-center mt-5 ">
-        <div id="assignment"  className="col-12 col-md-4 col-md-4 offset-md-1 text-center py-5">          
+      <div className="row align-items-center mt-5">
+        <div id="assignment"  className="col-12 col-md-4 col-md-4 offset-md-1 text-center py-5 mb-3">          
           <h3>Tasks:</h3>
           <br/>
           {
