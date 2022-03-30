@@ -9,19 +9,67 @@ function JSONtoCSVApp() {
     setResult([])
   }
   const formatearJson=()=>{
-    var formatear=JSON.parse(info)
-    setInfo(JSON.stringify(formatear, undefined, 4))
+    if (String(info)!==String([])) {
+      var formatear=JSON.parse(info)
+      setInfo(JSON.stringify(formatear, undefined, 4))       
+    } else {
+      alert("No hay datos que formatear....")      
+    }    
+  }
+  const agregarEjemplos= async (e)=>{
+    setResult([])
+    switch (parseInt(e.target.value)) {
+      case 1:
+      setInfo(JSON.stringify([
+        {
+          "id":1,    "name":"Johnson, Smith, and Jones Co.",
+          "amount":345.33,    "Remark":"Pays on time"
+        },
+        {
+          "id":2,    "name":"Sam \"Mad Dog\" Smith",
+          "amount":993.44,    "Remark":""
+        },
+        {
+          "id":3,    "name":"Barney & Company",
+          "amount":0,    "Remark":"Great to work with\nand always pays with cash."
+        },
+        {
+          "id":4,    "name":"Johnson's Automotive",
+          "amount":2344,    "Remark":""
+        }
+      ]), undefined, 4)
+        break;
+      case 2:
+        setInfo(JSON.stringify({ "data" : [
+          {    "id":1,    "name":"Johnson, Smith, and Jones Co."  },
+          {    "id":2,    "name":"Sam \"Mad Dog\" Smith"  },
+          {    "id":3,    "name":"Barney & Company"  },
+          {    "id":4,    "name":"Johnson's Automotive"  }
+        ] }
+        ), undefined, 4)
+        break;
+      case 3:
+        setInfo(JSON.stringify({ "race" : 
+        { "entries" : [
+         {    "id":11,    "name":"Johnson, Smith, and Jones Co."  },
+         {    "id":22,    "name":"Sam \"Mad Dog\" Smith"  },
+         {    "id":33,    "name":"Barney & Company"  },
+         {    "id":44,    "name":"Johnson's Automotive"  }
+       ] }
+       }), undefined, 4)
+        break;
+      default:
+        break;
+    }
   }
   const buscar=(dato)=>{
+    if (String(info)===String([])) {
+      alert("No hay datos que convertir")
+      return
+    }
     let rows = typeof objArray !== "object" ? JSON.parse(dato) : dato;
       for (const [key, value] of Object.entries(rows)) {  
-        console.log(Object.keys(value).length)     
       if (Object.keys(value).length>1) {
-        console.log("1-"+Object.keys(value).length)
-        console.log(value)
-        console.log(value.length)
-        console.log(rows)
-        console.log(rows.length)
         if (value.length===undefined) {
           convertToCsv(rows)
         } else {
@@ -33,8 +81,8 @@ function JSONtoCSVApp() {
           var objtemp=[]
           objtemp.push(rows)
           convertToCsv(objtemp)
+          return
         } else {
-          console.log("2")
           buscar(JSON.stringify(value)) 
         }        
       }      
@@ -47,8 +95,7 @@ function JSONtoCSVApp() {
     let str = "";
     filas.forEach(fila => {
       let linea = "";
-      let columnas =
-        typeof fila !== "object" ? JSON.parse(fila) : Object.values(fila);
+      let columnas = typeof fila !== "object" ? JSON.parse(fila) : Object.values(fila);
       columnas.forEach(columna => {
         if (linea !== "") {
           linea += ";";
@@ -58,7 +105,7 @@ function JSONtoCSVApp() {
         } else {
           linea += columna;
         }
-      });
+      }); 
       str += linea + "\r\n";
     });
     setResult(result => result.concat(titulos + "\r\n" + str))
@@ -89,9 +136,9 @@ function JSONtoCSVApp() {
         </div>
         <div className="col-12 d-flex flex-row mt-3">
           <h5 className="mt-3 me-3">Ejemplos:</h5>
-          <button type="button" className="btn btn-info mx-1">1</button>
-          <button type="button" className="btn btn-info mx-1">3</button>
-          <button type="button" className="btn btn-info mx-1">2</button>
+          <button type="button" value={1} className="btn btn-info mx-1" onClick={agregarEjemplos}>1</button>
+          <button type="button" value={2} className="btn btn-info mx-1" onClick={agregarEjemplos}>2</button>
+          <button type="button" value={3} className="btn btn-info mx-1" onClick={agregarEjemplos}>3</button>
         </div>
         </div>
       <div className="row mx-5 mt-3">
@@ -136,4 +183,35 @@ export default JSONtoCSVApp;
       str += line + "\r\n";
     });
     setResult(header + "\r\n" + str)
-} */
+} 
+
+
+const buscar=(dato)=>{
+    let rows = typeof objArray !== "object" ? JSON.parse(dato) : dato;
+      for (const [key, value] of Object.entries(rows)) {  
+        console.log(Object.keys(value).length)     
+      if (Object.keys(value).length>1) {
+        console.log("1-"+Object.keys(value).length)
+        console.log(value)
+        console.log(value.length)
+        console.log(rows)
+        console.log(rows.length)
+        if (value.length===undefined) {
+          convertToCsv(rows)
+        } else {
+          convertToCsv(value)
+        }
+        return
+      } else {
+        if (Object.keys(value).length===0) {
+          var objtemp=[]
+          objtemp.push(rows)
+          convertToCsv(objtemp)
+        } else {
+          console.log("2")
+          buscar(JSON.stringify(value)) 
+        }        
+      }      
+    } 
+  }
+*/

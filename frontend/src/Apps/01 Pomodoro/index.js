@@ -184,11 +184,11 @@ const playSound = (src)=>{
       };
     }, [isActive, isPaused]);
   return (
-    <div className="text-white align-items-center text-white pt-5 vh-100" 
+    <div id="bod" className="text-white align-items-center text-white h-100 py-5" 
     style={{
-      backgroundColor: (status==="Time"||status==="On task")?('#FAD961')
+      backgroundColor: (status==="Time"||status==="On task")?('#FFE53B')
                        :(status==="Short break"?('0093E9'):('0093E9')),
-      backgroundImage: (status==="Time"||status==="On task")?('linear-gradient(0deg, #FAD961 0%, #F76B1C 44%)')
+      backgroundImage: (status==="Time"||status==="On task")?('linear-gradient(147deg, #FFE53B 0%, #FF2525 74%)')
                        :(status==="Short break"?('linear-gradient(160deg, #0093E9 0%, #80D0C7 100%)'):
                         ('radial-gradient( circle farthest-corner at 10% 20%,  rgba(14,174,87,1) 0%, rgba(12,116,117,1) 90% )')),
     }}>
@@ -198,21 +198,21 @@ const playSound = (src)=>{
         </div>        
       </div> 
       <div className="row align-items-center mt-5">
-        <div id="assignment"  className="col-12 col-md-4 col-md-4 offset-md-1 text-center py-5 mb-3">          
+        <div id="assignmentp"  className="col-10 col-md-4 offset-1 text-center py-5 mb-3">          
           <h3>Tasks:</h3>
           <br/>
           {
           parseInt(update)<=parseInt(-1)?(
             <>
-            <input type="text" placeholder="Add task" value={task} onChange={(e)=>setTask(e.target.value)}/>
-            <input type="number" id="cant" className="mx-2" value={rep} min="1" onChange={(e)=>setRep(e.target.value)}/>
-            <button type="submit" className="btn btn-sm btn-success mx-2" disabled={status==="Time"?(false):(true)} onClick={addTask}>+</button><br/>
+            <input type="text" className="form-control w-50 d-inline mx-2" placeholder="Add task" value={task} onChange={(e)=>setTask(e.target.value)}/>
+            <input type="number" id="cant" className="form-control d-inline mx-2" value={rep} min="1" onChange={(e)=>setRep(e.target.value)}/>
+            <button type="submit" className="btn btn-sm btn-success d-inline mx-2" disabled={status==="Time"?(false):(true)} onClick={addTask}>+</button><br/>
             </>
           ):(
             <>
-            <input type="text" placeholder="update task" value={task} onChange={(e)=>setTask(e.target.value)}/>
-            <input type="number" id="cant" className="mx-2" value={rep} min="1" onChange={(e)=>setRep(e.target.value)}/>
-            <button type="submit" className="btn btn-sm btn-primary mx-2"disabled={status==="Time"?(false):(true)}  onClick={updateTask}>Update</button><br/>
+            <input type="text" className="form-control w-50 d-inline mx-2" placeholder="update task" value={task} onChange={(e)=>setTask(e.target.value)}/>
+            <input type="number" id="cant" className="form-control d-inline mx-2" value={rep} min="1" onChange={(e)=>setRep(e.target.value)}/>
+            <button type="submit" className="btn btn-sm btn-primary d-inline mx-2"disabled={status==="Time"?(false):(true)}  onClick={updateTask}>Update</button><br/>
           </>          
           )}          
           <center>          
@@ -251,7 +251,7 @@ const playSound = (src)=>{
         {arrayTask.length> 0&&(<button className="btn btn-warning" onClick={resetAll}>Reset</button>)}        
         </center>
         </div>        
-        <div id="assignment"  className="col-12 col-md-4 col-md-4 offset-md-2 text-center py-5">
+        <div id="assignmentp"  className="col-10 offset-1 col-md-4 offset-md-2 text-center py-5">
           <h3>{status}</h3>
           <Timer time={time} />
           <ControlButtons
