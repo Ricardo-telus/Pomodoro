@@ -187,7 +187,7 @@ const playSound = (src)=>{
     useEffect(() => {
       console.log("here")
       var content=JSON.parse(window.localStorage.getItem("tasks"))
-      if (content.length!==0) {
+      if (content!==null) {
         setArrayTask(content)
         calculateTask(content)
       }
