@@ -7,9 +7,9 @@ import taskSound from './sounds/task.mp3'
 //https://pomofocus.io/
 function PomodoroApp() {
   //hooks for get times
-  const [totalTime, setTotalTime]=useState(1)
-  const [shortRest, setShortRest]=useState(1)
-  const [longRest, setLongRest]=useState(1)
+  const [totalTime, setTotalTime]=useState(25)
+  const [shortRest, setShortRest]=useState(5)
+  const [longRest, setLongRest]=useState(15)
   //hooks for get and control the arrayTask
   const [arrayTask, setArrayTask]=useState([])
   const [task, setTask]=useState("")
@@ -45,12 +45,9 @@ const playSound = (src)=>{
       calculateTask(tasks2)
       setTask('')
       setRep(1) 
-      saveTask()     
+      const data=JSON.stringify(arrayTask)
+      window.localStorage.setItem("tasks",data)    
     }
-  }
-  const saveTask= ()=>{
-    const data=JSON.stringify(arrayTask)
-    window.localStorage.setItem("tasks",data)
   }
   const updateTask=(event)=>{
     event.preventDefault();  
@@ -63,14 +60,15 @@ const playSound = (src)=>{
       setTask('')
       setRep(1)
       setUpdate(-1)
-      saveTask() 
     } else {    
       arrayTask.forEach((element,index)=>(
         parseInt(index)!==parseInt(event.target.value)&&(tempArray.push(element) )      
       ))
       setArrayTask(tempArray) 
-      saveTask() 
-    }    
+      calculateTask(tempArray)
+    } 
+    const newData=JSON.stringify(tempArray)
+    window.localStorage.setItem("tasks",(newData))   
   }
   const taskToUpdate=(event)=>{
     setTask(arrayTask[event.target.value].task)
@@ -159,6 +157,8 @@ const playSound = (src)=>{
             if (task2[index].complete<task2[index].rep) {        
               task2[index].complete=task2[index].complete+1
               index=task2.length
+              const data=JSON.stringify(task2)
+              window.localStorage.setItem("tasks",data)
             }
           } 
           console.log(task2)
@@ -183,8 +183,17 @@ const playSound = (src)=>{
         clearInterval(interval);
       };
     }, [isActive, isPaused]);
+    //useffect to get data from local storage if there is any
+    useEffect(() => {
+      console.log("here")
+      var content=JSON.parse(window.localStorage.getItem("tasks"))
+      if (content.length!==0) {
+        setArrayTask(content)
+        calculateTask(content)
+      }
+    }, []);
   return (
-    <div id="bod" className="text-white align-items-center text-white h-100 py-5" 
+    <div id="bod" className="text-white align-items-center mw-100 mh-100 text-white py-5" 
     style={{
       backgroundColor: (status==="Time"||status==="On task")?('#FFE53B')
                        :(status==="Short break"?('0093E9'):('0093E9')),
