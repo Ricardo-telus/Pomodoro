@@ -1,11 +1,14 @@
 html, body {
-  height: 100%;
+  min-height: 100%;
+  min-width: 100%;
   margin: 0;
   padding: 0;
   }
 #bod{
   min-height: 1080px;
+  min-width: 100%;
   margin: 0;
+  padding: 0;
 }
 #assignmentp{
   background: rgba( 255, 255, 255, 0.3 );
@@ -28,4 +31,7 @@ td{
 }
 #cant{
   width: 3em;
+}
+#but{
+  min-width: 115px;
 }

@@ -83,7 +83,7 @@ const playSound = (src)=>{
     setRep(1)
     setRounds(1)
     setTask("")
-    setTime(totalTime*60.1*1000)
+    setTime(totalTime*60*1000)
     setTotalTaks(0)
     setUpdate(-1)
     setStatus("Time")
@@ -99,9 +99,13 @@ const playSound = (src)=>{
   }
 // code for handle the timer
   const handleStart = () => {
-    setIsActive(true);
-    setIsPaused(false);
-    setStatus("On task")
+    if (String(arrayTask)!=="") {
+      setIsActive(true);
+      setIsPaused(false);
+      setStatus("On task")
+    } else {
+      alert("Add a task first")
+    }    
   };
 
   const handlePauseResume = () => {
@@ -225,15 +229,15 @@ const playSound = (src)=>{
           </>          
           )}          
           <center>          
-          <table id="tasks" className="table table-borderless w-75 mt-4 ">
+          <table id="tasks" className="table table-borderless w-100 mt-4 ">
           <tbody>         
             {
               arrayTask.length> 0&&(
                 arrayTask.map((element,index)=>{ return(
                   <tr key={index}>
-                  <td>{element.task}</td>
+                  <td class="overflow-visible">{element.task}</td>
                   <td>{element.complete}/{element.rep}</td>
-                  <td>
+                  <td id="but">
                     <button 
                     type="submit" 
                     onClick={updateTask} 
@@ -260,7 +264,9 @@ const playSound = (src)=>{
         {arrayTask.length> 0&&(<button className="btn btn-warning" onClick={resetAll}>Reset</button>)}        
         </center>
         </div>        
-        <div id="assignmentp"  className="col-10 offset-1 col-md-4 offset-md-2 text-center py-5">
+        <div id="assignmentp"  
+        className={String(arrayTask)===""?("col-10 offset-1 col-md-4 offset-md-2 text-center py-5"):("col-10 offset-1 col-md-4 offset-md-2 text-center pt-5")}
+        >
           <h3>{status}</h3>
           <Timer time={time} />
           <ControlButtons
@@ -273,7 +279,7 @@ const playSound = (src)=>{
           {
             arrayTask.length>0?(
             <div className="progress">
-            <div className="progress-bar" role="progressbar" style={{width: (rounds*100/(totalTaks*2))+'%'}} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+            <div className="progress-bar" role="progressbar" style={{width: (rounds*100/(totalTaks*2))+'%'}} aria-valuemin="0" aria-valuemax="100"></div>
             </div>
             ):(
               <>
